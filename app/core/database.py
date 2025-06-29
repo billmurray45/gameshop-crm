@@ -9,7 +9,7 @@ async_session = async_sessionmaker(engine, expire_on_commit=False)
 
 
 class Base(DeclarativeBase):
-    __abstract__ = True
+    pass
 
 
 async def get_session():
