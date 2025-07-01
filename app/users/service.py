@@ -14,13 +14,11 @@ from app.auth.security import get_password_hash
 
 async def create_user_service(session: AsyncSession, user_data: UserCreate) -> User:
     if await get_user_by_email(session, str(user_data.email)):
-        raise HTTPException(409, "Email already registered")
-
+        raise HTTPException(409, "Email уже зарегистрирован")
     if await get_user_by_username(session, user_data.username):
-        raise HTTPException(409, "Username already taken")
-
+        raise HTTPException(409, "Имя пользователя уже занято")
     if len(user_data.password) < 8:
-        raise HTTPException(400, "Password must be at least 8 characters long")
+        raise HTTPException(400, "Пароль должен содержать не менее 8 символов")
 
     user = User(
         email=str(user_data.email),
@@ -28,6 +26,7 @@ async def create_user_service(session: AsyncSession, user_data: UserCreate) -> U
         username=user_data.username,
         full_name=user_data.full_name
     )
+
     return await insert_user(session, user)
 
 
@@ -35,7 +34,7 @@ async def update_user_service(session: AsyncSession, user_id: int, user_data: Us
     user = await get_user_by_id(session, user_id)
 
     if not user:
-        raise HTTPException(404, "User not found")
+        raise HTTPException(404, "Пользователь не найден")
 
     user_data = user_data.model_dump(exclude_unset=True)
 
@@ -44,4 +43,5 @@ async def update_user_service(session: AsyncSession, user_id: int, user_data: Us
 
     for field, value in user_data.items():
         setattr(user, field, value)
+
     return await update_user(session, user)
