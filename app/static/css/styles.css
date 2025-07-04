@@ -141,3 +141,17 @@ footer {
     text-align: center !important;
     font-size: 1rem !important;
 }
+
+.profile-container {
+    max-width: 400px;
+    margin: 50px auto;
+    padding: 2rem 1.5rem;
+    background: #f7fafc;
+    border-radius: 14px;
+    box-shadow: 0 2px 12px rgba(60,60,60,0.07);
+}
+
+.profile-info p {
+    margin-bottom: 1rem;
+    color: #222;
+}

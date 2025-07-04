@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+{% block title %}Профиль{% endblock %}
+
+{% block content %}
+<div class="profile-container">
+<h2>Профиль пользователя</h2>
+<div class="profile-info">
+<p><strong>Логин:</strong> {{ user.username }}</p>
+<p><strong>Email:</strong> {{ user.email }}</p>
+{% if user.full_name %}
+<p><strong>ФИО:</strong> {{ user.full_name }}</p>
+{% endif %}
+<p><strong>Зарегистрирован:</strong> {{ user.created_at.strftime('%d.%m.%Y %H:%M') }}</p>
+</div>
+<a href="" class="btn btn-secondary">Выйти</a>
+</div>
+{% endblock %}

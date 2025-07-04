@@ -1,11 +1,11 @@
 from fastapi import FastAPI
 from fastapi.staticfiles import StaticFiles
-from app.routers import users
+from app.users.routes import router as user_router
 import uvicorn
 
 app = FastAPI()
 app.mount("/static", StaticFiles(directory="app/static"), name="static")
-app.include_router(users.router)
+app.include_router(user_router)
 
 
 if __name__ == "__main__":
