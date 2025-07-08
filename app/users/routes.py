@@ -3,21 +3,23 @@ from fastapi.responses import HTMLResponse
 from sqlalchemy.ext.asyncio import AsyncSession
 from app.dependencies.templates import templates
 from app.core.database import get_session
+from app.users.models import User
 from app.users.schemas import UserCreate
 from app.users.service import create_user_service
 from app.users.crud import get_user_by_username
+from app.auth.security import get_current_user
 
 router = APIRouter()
 
 
-@router.get("/users", response_class=HTMLResponse)
+@router.get("/register", response_class=HTMLResponse)
 async def register_page(request: Request):
     return templates.TemplateResponse(
-        "users/users.html", {"request": request}
+        "users/register.html", {"request": request}
     )
 
 
-@router.post("/users", response_class=HTMLResponse)
+@router.post("/register", response_class=HTMLResponse)
 async def register_user(
     request: Request,
     session: AsyncSession = Depends(get_session),
@@ -40,7 +42,7 @@ async def register_user(
         )
     except HTTPException as exc:
         return templates.TemplateResponse(
-            "users/users.html",
+            "users/register.html",
             {
                 "request": request,
                 "error": exc.detail,
@@ -49,8 +51,13 @@ async def register_user(
         )
 
 
-@router.get("/profile/{username}", response_class=HTMLResponse)
-async def get_profile(request: Request, username: str, session: AsyncSession = Depends(get_session)):
+@router.get("/profile", response_class=HTMLResponse)
+async def get_profile(
+        request: Request,
+        username: str,
+        session: AsyncSession = Depends(get_session),
+        current_user: User = Depends(get_current_user)
+):
     user = await get_user_by_username(session, username)
 
     if not user:
@@ -60,6 +67,6 @@ async def get_profile(request: Request, username: str, session: AsyncSession = D
         "users/profile.html",
         {
             "request": request,
-            "user": user
+            "user": current_user
         }
     )

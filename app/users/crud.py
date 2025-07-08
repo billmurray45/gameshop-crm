@@ -3,7 +3,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from app.users.models import User
 
 
-async def insert_user(session: AsyncSession, user: User) -> User:
+async def create_user(session: AsyncSession, user: User) -> User:
     session.add(user)
     await session.commit()
     await session.refresh(user)

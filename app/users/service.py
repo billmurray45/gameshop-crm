@@ -3,7 +3,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from app.users.models import User
 from app.users.schemas import UserCreate, UserUpdate
 from app.users.crud import (
-    insert_user,
+    create_user,
     get_user_by_id,
     get_user_by_email,
     get_user_by_username,
@@ -27,7 +27,7 @@ async def create_user_service(session: AsyncSession, user_data: UserCreate) -> U
         full_name=user_data.full_name
     )
 
-    return await insert_user(session, user)
+    return await create_user(session, user)
 
 
 async def update_user_service(session: AsyncSession, user_id: int, user_data: UserUpdate) -> User | None:

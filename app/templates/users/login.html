@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{% block title %}Вход{% endblock %}
+
+{% block content %}
+<div class="login-container">
+    <h2>Вход</h2>
+    {% if error %}
+        <div class="alert error">{{ error }}</div>
+    {% endif %}
+    <form method="post" class="login-form">
+        <label for="username">Имя пользователя:</label>
+        <input type="text"
+               id="username"
+               name="username"
+               required
+               minlength="6"
+               maxlength="50"
+               autocomplete="username"
+               value="{{ form.username if form and form.username else '' }}">
+
+        <label for="password">Пароль:</label>
+        <input type="password"
+               id="password"
+               name="password"
+               required
+               minlength="8"
+               maxlength="128"
+               autocomplete="current-password">
+
+        <button type="submit" class="btn">Войти</button>
+    </form>
+    <p class="register-link">Нет аккаунта? <a href="{{ url_for('register_page') }}">Зарегистрироваться</a></p>
+</div>
+{% endblock %}

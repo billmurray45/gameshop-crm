@@ -37,7 +37,7 @@ async def get_current_user(request: Request, session=Depends(get_session)):
     credentials_exception = HTTPException(
         status_code=status.HTTP_401_UNAUTHORIZED,
         detail="Could not validate credentials",
-        headers={"WWW-Authenticate": "Bearer"},
+        headers={"WWW-Authenticate": "Bearer"}
     )
     token = request.cookies.get("access_token")
     if not token:
