@@ -54,3 +54,19 @@ async def get_current_user(request: Request, session=Depends(get_session)):
     if user is None:
         raise credentials_exception
     return user
+
+
+async def get_current_user_optional(request: Request, session=Depends(get_session)):
+    token = request.cookies.get("access_token")
+    if not token:
+        return None
+    try:
+        payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
+        username = payload.get("sub")
+        if username is None:
+            return None
+    except InvalidTokenError:
+        return None
+
+    user = await get_user_by_username(session, username)
+    return user
