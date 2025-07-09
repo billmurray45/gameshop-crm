@@ -1,31 +1,85 @@
-{% extends "base.html" %}
-
-{% block title %}Регистрация{% endblock %}
-
-{% block content %}
-<div class="register-container">
-<h2>Регистрация</h2>
-{% if error %}
-<div class="alert error">{{ error }}</div>
-{% endif %}
-<form method="post" class="register-form">
-<label for="email">Email:</label>
-<input type="email" id="email" name="email" placeholder="you@example.com" required maxlength="100" autocomplete="email" value="{{ form.email if form and form.email else '' }}">
-
-<label for="username">Имя пользователя:</label>
-<input type="text" id="username" name="username" placeholder="Ваш ник" required minlength="6" maxlength="50" autocomplete="username" value="{{ form.username if form and form.username else '' }}">
-
-<label for="full_name">ФИО (опционально):</label>
-<input type="text" id="full_name" name="full_name" placeholder="Иван Иванов" maxlength="100" value="{{ form.full_name if form and form.full_name else '' }}">
-
-<label for="password">Пароль:</label>
-<input type="password" id="password" name="password" required minlength="8" maxlength="128" autocomplete="new-password">
-
-<label for="password2">Повторите пароль:</label>
-<input type="password" id="password2" name="password2" required minlength="8" maxlength="128" autocomplete="new-password">
-
-<button type="submit" class="btn">Зарегистрироваться</button>
-</form>
-<p class="login-link">Уже есть аккаунт? <a href="">Войти</a></p>
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<title>Регистрация - PSNGames CRM</title>
+<link rel="stylesheet" href="{{ url_for('static', path='css/auth.css') }}">
+</head>
+<body>
+<div class="container">
+<div class="form-section">
+<div class="form-tabs">
+<a href="/login"><div class="tab">Вход</div></a>
+<div class="tab active">Регистрация</div>
 </div>
-{% endblock %}
+{% if error %}<div class="error-message">{{ error }}</div>{% endif %}
+<form class="register-form" method="post" action="/register">
+<label>Email <span class="req">*</span></label>
+<input type="email" id="email" name="email" placeholder="you@example.com" required maxlength="100" autocomplete="email" value="{{ form.email if form and form.email else '' }}">
+<label>Имя пользователя <span class="req">*</span></label>
+<input type="text" id="username" name="username" placeholder="Ваш ник" required minlength="6" maxlength="50" autocomplete="username" value="{{ form.username if form and form.username else '' }}">
+<label>ФИО (опционально):</label>
+<input type="text" id="full_name" name="full_name" placeholder="Иван Иванов" maxlength="100" value="{{ form.full_name if form and form.full_name else '' }}">
+<label>Пароль <span class="req">*</span></label>
+<div class="password-wrapper">
+<input type="password" id="password" name="password" required minlength="8" maxlength="128" autocomplete="new-password">
+<span class="eye"></span>
+</div>
+<label>Повторите пароль <span class="req">*</span></label>
+<div class="password-wrapper">
+<input type="password" id="confirm_password" name="confirm_password" required minlength="8" maxlength="128" autocomplete="new-password">
+<span class="eye"></span>
+</div>
+<button type="submit" class="register-btn">Зарегистрироваться</button>
+</form>
+</div>
+<div class="image-section"></div>
+</div>
+</body>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  const form = document.querySelector('.register-form');
+  if (!form) return;
+
+  const password = form.querySelector('input[name="password"]');
+  const confirm = form.querySelector('input[name="confirm_password"]');
+
+  if (!password || !confirm) return;
+
+  form.addEventListener('submit', function(e) {
+    if (password.value !== confirm.value) {
+      confirm.setCustomValidity('Пароли не совпадают');
+      confirm.reportValidity();
+      e.preventDefault();
+    } else {
+      confirm.setCustomValidity('');
+    }
+  });
+
+  confirm.addEventListener('input', function() {
+    if (password.value === confirm.value) {
+      confirm.setCustomValidity('');
+    }
+  });
+});
+
+document.addEventListener('DOMContentLoaded', function() {
+  document.querySelectorAll('.password-wrapper').forEach(function(wrapper) {
+    const input = wrapper.querySelector('input[type="password"], input[type="text"]');
+    const eye = wrapper.querySelector('.eye');
+    if (!input || !eye) return;
+
+    let visible = false;
+
+    eye.addEventListener('click', function() {
+      visible = !visible;
+      input.type = visible ? 'text' : 'password';
+      // Менять иконку если нужно (глаз/глаз зачёркнутый)
+      eye.style.backgroundImage = visible
+        ? "url('data:image/svg+xml;utf8,<svg width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><ellipse cx=\"12\" cy=\"12\" rx=\"9\" ry=\"6.5\" stroke=\"%23B4B6C2\" stroke-width=\"2\"/><circle cx=\"12\" cy=\"12\" r=\"2.7\" fill=\"%23B4B6C2\"/><line x1=\"5\" y1=\"19\" x2=\"19\" y2=\"5\" stroke=\"%23B4B6C2\" stroke-width=\"2\"/></svg>')"
+        : "url('data:image/svg+xml;utf8,<svg width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><ellipse cx=\"12\" cy=\"12\" rx=\"9\" ry=\"6.5\" stroke=\"%23B4B6C2\" stroke-width=\"2\"/><circle cx=\"12\" cy=\"12\" r=\"2.7\" fill=\"%23B4B6C2\"/></svg>')";
+    });
+  });
+});
+</script>
+</html>

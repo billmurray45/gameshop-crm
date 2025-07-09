@@ -1,11 +1,23 @@
-{% extends "base.html" %}
-
-{% block title %}Регистрация успешна{% endblock %}
-
-{% block content %}
-<div class="success-message">
-<h2>Регистрация прошла успешно!</h2>
-<p>Теперь вы можете войти в свой аккаунт.</p>
-<a href="" class="btn btn-primary">Войти</a>
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<title>Успешная регистрация - PSNGames CRM</title>
+<link rel="stylesheet" href="{{ url_for('static', path='css/auth.css') }}">
+</head>
+<body>
+<div class="container">
+<div class="form-section">
+<div class="form-tabs">
+<a href="/login" class="tab">Вход</a>
+<div class="tab active">Регистрация</div>
 </div>
-{% endblock %}
+<div class="success-message">
+<svg width="28" height="28" viewBox="0 0 28 28" style="vertical-align:middle;margin-right:12px;margin-left:-6px;"><circle cx="14" cy="14" r="14" fill="#32d583"/><path d="M8 14l5 5 7-8" stroke="#fff" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" fill="none"/></svg>
+Регистрация прошла успешно! Теперь вы можете войти в систему.
+</div>
+</div>
+<div class="image-section"></div>
+</div>
+</body>
+</html>

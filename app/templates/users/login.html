@@ -1,35 +1,49 @@
-{% extends "base.html" %}
-
-{% block title %}Вход{% endblock %}
-
-{% block content %}
-<div class="login-container">
-    <h2>Вход</h2>
-    {% if error %}
-        <div class="alert error">{{ error }}</div>
-    {% endif %}
-    <form method="post" class="login-form">
-        <label for="username">Имя пользователя:</label>
-        <input type="text"
-               id="username"
-               name="username"
-               required
-               minlength="6"
-               maxlength="50"
-               autocomplete="username"
-               value="{{ form.username if form and form.username else '' }}">
-
-        <label for="password">Пароль:</label>
-        <input type="password"
-               id="password"
-               name="password"
-               required
-               minlength="8"
-               maxlength="128"
-               autocomplete="current-password">
-
-        <button type="submit" class="btn">Войти</button>
-    </form>
-    <p class="register-link">Нет аккаунта? <a href="{{ url_for('register_page') }}">Зарегистрироваться</a></p>
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<title>Авторизация - PSNGames CRM</title>
+<link rel="stylesheet" href="{{ url_for('static', path='css/auth.css') }}">
+</head>
+<body>
+<div class="container">
+<div class="form-section">
+<div class="form-tabs">
+<div class="tab active">Вход</div>
+<a href="/register"><div class="tab">Регистрация</div></a>
 </div>
-{% endblock %}
+{% if error %}<div class="error-message">{{ error }}</div>{% endif %}
+<form class="login-form" method="post" action="/login">
+<label>Имя пользователя <span class="req">*</span></label>
+<input type="text" id="username" name="username" placeholder="Ваш ник" required minlength="6" maxlength="50" autocomplete="username" value="{{ form.username if form and form.username else '' }}">
+<label>Пароль <span class="req">*</span></label>
+<div class="password-wrapper">
+<input type="password" id="password" name="password" required minlength="8" maxlength="128" autocomplete="new-password">
+<span class="eye"></span>
+</div>
+<button type="submit" class="login-btn">Войти</button>
+</form>
+</div>
+<div class="image-section"></div>
+</div>
+</body>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  document.querySelectorAll('.password-wrapper').forEach(function(wrapper) {
+    const input = wrapper.querySelector('input[type="password"], input[type="text"]');
+    const eye = wrapper.querySelector('.eye');
+    if (!input || !eye) return;
+
+    let visible = false;
+
+    eye.addEventListener('click', function() {
+      visible = !visible;
+      input.type = visible ? 'text' : 'password';
+      eye.style.backgroundImage = visible
+        ? "url('data:image/svg+xml;utf8,<svg width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><ellipse cx=\"12\" cy=\"12\" rx=\"9\" ry=\"6.5\" stroke=\"%23B4B6C2\" stroke-width=\"2\"/><circle cx=\"12\" cy=\"12\" r=\"2.7\" fill=\"%23B4B6C2\"/><line x1=\"5\" y1=\"19\" x2=\"19\" y2=\"5\" stroke=\"%23B4B6C2\" stroke-width=\"2\"/></svg>')"
+        : "url('data:image/svg+xml;utf8,<svg width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><ellipse cx=\"12\" cy=\"12\" rx=\"9\" ry=\"6.5\" stroke=\"%23B4B6C2\" stroke-width=\"2\"/><circle cx=\"12\" cy=\"12\" r=\"2.7\" fill=\"%23B4B6C2\"/></svg>')";
+    });
+  });
+});
+</script>
+</html>
