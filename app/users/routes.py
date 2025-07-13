@@ -1,19 +1,21 @@
 from fastapi import APIRouter, Request, Form, Depends, HTTPException
-from fastapi.responses import HTMLResponse
+from fastapi.responses import HTMLResponse, RedirectResponse
 from sqlalchemy.ext.asyncio import AsyncSession
 from app.dependencies.templates import templates
 from app.core.database import get_session
 from app.users.models import User
 from app.users.schemas import UserCreate
 from app.users.service import create_user_service
-from app.users.crud import get_user_by_username
-from app.auth.security import get_current_user
+from app.users.repository import UserRepository
+from app.auth.security import get_current_user_optional, get_current_user
 
 router = APIRouter()
 
 
 @router.get("/register", response_class=HTMLResponse)
-async def register_page(request: Request):
+async def register_page(request: Request, current_user=Depends(get_current_user_optional)):
+    if current_user:
+        return RedirectResponse("/", status_code=303)
     return templates.TemplateResponse(
         "users/register.html", {"request": request}
     )
@@ -51,14 +53,14 @@ async def register_user(
         )
 
 
-@router.get("/profile", response_class=HTMLResponse)
+@router.get("/user/{usernmae}", response_class=HTMLResponse)
 async def get_profile(
         request: Request,
         username: str,
         session: AsyncSession = Depends(get_session),
         current_user: User = Depends(get_current_user)
 ):
-    user = await get_user_by_username(session, username)
+    user = await UserRepository.get_user_by_username(session, username)
 
     if not user:
         raise HTTPException(404, "Пользователь не найден!")
