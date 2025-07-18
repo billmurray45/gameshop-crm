@@ -74,7 +74,6 @@ document.addEventListener('DOMContentLoaded', function() {
     eye.addEventListener('click', function() {
       visible = !visible;
       input.type = visible ? 'text' : 'password';
-      // Менять иконку если нужно (глаз/глаз зачёркнутый)
       eye.style.backgroundImage = visible
         ? "url('data:image/svg+xml;utf8,<svg width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><ellipse cx=\"12\" cy=\"12\" rx=\"9\" ry=\"6.5\" stroke=\"%23B4B6C2\" stroke-width=\"2\"/><circle cx=\"12\" cy=\"12\" r=\"2.7\" fill=\"%23B4B6C2\"/><line x1=\"5\" y1=\"19\" x2=\"19\" y2=\"5\" stroke=\"%23B4B6C2\" stroke-width=\"2\"/></svg>')"
         : "url('data:image/svg+xml;utf8,<svg width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" xmlns=\"http://www.w3.org/2000/svg\"><ellipse cx=\"12\" cy=\"12\" rx=\"9\" ry=\"6.5\" stroke=\"%23B4B6C2\" stroke-width=\"2\"/><circle cx=\"12\" cy=\"12\" r=\"2.7\" fill=\"%23B4B6C2\"/></svg>')";

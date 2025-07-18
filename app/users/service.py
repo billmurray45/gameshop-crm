@@ -24,16 +24,17 @@ async def create_user_service(session: AsyncSession, user_data: UserCreate) -> U
     return await UserRepository.create_user(session, user)
 
 
-async def update_user_service(session: AsyncSession, user_id: int, user_data: UserUpdate) -> User | None:
+async def update_user_service(session: AsyncSession, user_id: int, user_data: UserUpdate) -> User:
     user = await UserRepository.get_user_by_id(session, user_id)
     if not user:
         raise HTTPException(404, "Пользователь не найден")
 
-    user_data = user_data.model_dump(exclude_unset=True)
-
-    if "password" in user_data:
-        user_data["hashed_password"] = get_password_hash(user_data.pop("password"))
-    for field, value in user_data.items():
+    update_data = user_data.model_dump(exclude_unset=True)
+    if "password" in update_data and update_data["password"]:
+        update_data["hashed_password"] = get_password_hash(update_data.pop("password"))
+    for field, value in update_data.items():
         setattr(user, field, value)
 
-    return await UserRepository.update_user(session, user)
+    await session.commit()
+    await session.refresh(user)
+    return user

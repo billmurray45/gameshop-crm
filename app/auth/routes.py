@@ -5,7 +5,6 @@ from app.core.database import get_session
 from app.auth.security import (
     create_access_token,
     create_refresh_token,
-    get_current_user_optional,
     ACCESS_TOKEN_EXPIRE_MINUTES,
     REFRESH_TOKEN_EXPIRE_DAYS
 )
@@ -17,16 +16,10 @@ router = APIRouter()
 
 
 @router.get("/login", response_class=HTMLResponse)
-async def login_page(
-        request: Request,
-        response: Response,
-        current_user=Depends(get_current_user_optional)
-):
-    if current_user:
-        return RedirectResponse("/", status_code=303)
-    return templates.TemplateResponse(
-        "users/login.html", {"request": request}
-    )
+async def login_page(request: Request,):
+    if request.state.user:
+        return RedirectResponse("/", status_code=status.HTTP_303_SEE_OTHER)
+    return templates.TemplateResponse("users/login.html", {"request": request})
 
 
 @router.post("/login")
@@ -70,3 +63,14 @@ async def login_post(
                 "form": login_form.model_dump()
             }
         )
+
+
+@router.get("/logout", response_class=HTMLResponse)
+async def logout(
+        request: Request,
+        response: Response
+):
+    response = RedirectResponse(url="/", status_code=status.HTTP_303_SEE_OTHER)
+    response.delete_cookie("access_token")
+    response.delete_cookie("refresh_token")
+    return response

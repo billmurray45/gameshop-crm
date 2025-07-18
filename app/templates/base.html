@@ -1,14 +1,14 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta charset="UTF-8">
 <meta http-equiv="X-UA-Compatible" content="IE=Edge">
-<title>PSNGames CRM</title>
+<title>{% block title %}PSNGames CRM{% endblock %}</title>
 <meta name="viewport" content="width=device-width, maximum-scale=1.0, initial-scale=1.0">
 <meta name="format-detection" content="telephone=no">
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Poppins:ital,wght@0,500;1,500&amp;display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:ital,wght@0,500;1,500&display=swap">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-<link rel="stylesheet" media="all" href="{{ url_for('static', path='css/styles.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', path='css/styles.css') }}">
 </head>
 
 <body class="dark">
@@ -22,90 +22,28 @@ document.querySelector('.js-switch-theme input').checked = true;
 }
 </script>
 <div class="page">
+
+<!-- Sidebar Menu -->
 <div class="sidebar">
-<div class="sidebar__top"><a class="sidebar__logo" href="https://ui8-unity-gaming.herokuapp.com/index.html"><img class="sidebar__pic sidebar__pic_black" src="/static/images/logo.svg" alt=""><img class="sidebar__pic sidebar__pic_white" src="/static/images/logo-white.svg" alt=""></a><button class="sidebar__burger"></button>
-</div>
+<div class="sidebar__top"><a class="sidebar__logo" href="https://ui8-unity-gaming.herokuapp.com/index.html"><img class="sidebar__pic sidebar__pic_black" src="/static/images/logo.svg" alt=""><img class="sidebar__pic sidebar__pic_white" src="/static/images/logo-white.svg" alt=""></a><button class="sidebar__burger"></button></div>
 <div class="sidebar__wrapper">
 <div class="sidebar__inner">
 <div class="sidebar__group">
 <div class="sidebar__caption caption-sm"><span>Главное </span>меню</div>
 <div class="sidebar__menu">
-<a class="sidebar__item active" href="/">
-<div class="sidebar__icon"><i class="fa-solid fa-gamepad"></i></div>
-<div class="sidebar__text">News Feed</div>
-</a>
-<a class="sidebar__item" href="/">
-<div class="sidebar__icon"><i class="fa-solid fa-fire"></i></div>
-<div class="sidebar__text">Trending</div>
-</a>
-<a class="sidebar__item" href="/">
-<div class="sidebar__icon"><i class="fa-solid fa-user-group"></i></div>
-<div class="sidebar__text">Following</div>
-</a>
-<a class="sidebar__item" href="/">
-<div class="sidebar__icon"><i class="fa-solid fa-video"></i></div>
-<div class="sidebar__text">Your Videos</div>
-<div class="sidebar__add"><i class="fa-solid fa-plus"></i></div>
-</a>
-<a class="sidebar__item" href="/">
-<div class="sidebar__icon"><i class="fa-solid fa-list"></i></div>
-<div class="sidebar__text">Playlist</div>
-</a>
+<a class="sidebar__item active" href="/"><div class="sidebar__icon"><i class="fa-solid fa-gamepad"></i></div><div class="sidebar__text">News Feed</div></a>
+<a class="sidebar__item" href="/"><div class="sidebar__icon"><i class="fa-solid fa-fire"></i></div><div class="sidebar__text">Trending</div></a>
+<a class="sidebar__item" href="/"><div class="sidebar__icon"><i class="fa-solid fa-user-group"></i></div><div class="sidebar__text">Following</div></a>
+<a class="sidebar__item" href="/"><div class="sidebar__icon"><i class="fa-solid fa-video"></i></div><div class="sidebar__text">Your Videos</div><div class="sidebar__add"><i class="fa-solid fa-plus"></i></div></a>
+<a class="sidebar__item" href="/"><div class="sidebar__icon"><i class="fa-solid fa-list"></i></div><div class="sidebar__text">Playlist</div></a>
 </div>
-</div>
-<div class="sidebar__group">
-<div class="sidebar__caption caption-sm">Following</div>
-<div class="sidebar__list">
-<a class="sidebar__item" href="https://ui8-unity-gaming.herokuapp.com/channel-profile.html">
-<div class="sidebar__ava"><img class="sidebar__pic" src="/static/images/ava-1.png" alt=""></div>
-<div class="sidebar__text">Dylan Hodges</div>
-</a>
-<a class="sidebar__item online" href="https://ui8-unity-gaming.herokuapp.com/channel-profile.html">
-<div class="sidebar__ava"><img class="sidebar__pic" src="/static/images/ava-2.png" alt=""></div>
-<div class="sidebar__text">Vincent Parks</div>
-</a>
-<a class="sidebar__item" href="https://ui8-unity-gaming.herokuapp.com/channel-profile.html">
-<div class="sidebar__ava"><img class="sidebar__pic" src="/static/images/ava-3.png" alt=""></div>
-<div class="sidebar__text">Richard Bowers</div>
-</a>
-<a class="sidebar__item" href="https://ui8-unity-gaming.herokuapp.com/channel-profile.html">
-<div class="sidebar__ava"><img class="sidebar__pic" src="/static/images/ava-4.png" alt=""></div>
-<div class="sidebar__text">Isaac Lambert</div>
-</a>
-<a class="sidebar__item online" href="https://ui8-unity-gaming.herokuapp.com/channel-profile.html">
-<div class="sidebar__ava"><img class="sidebar__pic" src="/static/images/ava-2.png" alt=""></div>
-<div class="sidebar__text">Lillie Nash</div>
-</a>
-<a class="sidebar__item" href="https://ui8-unity-gaming.herokuapp.com/channel-profile.html">
-<div class="sidebar__ava"><img class="sidebar__pic" src="/static/images/ava-5.png" alt=""></div>
-<div class="sidebar__text">Edith Cain</div>
-</a>
-<a class="sidebar__item online" href="https://ui8-unity-gaming.herokuapp.com/channel-profile.html">
-<div class="sidebar__ava"><img class="sidebar__pic" src="/static/images/ava-1.png" alt=""></div>
-<div class="sidebar__text">Jerry Sherman</div>
-</a>
-</div>
-<a class="sidebar__more" href="https://ui8-unity-gaming.herokuapp.com/index.html#">
-<div class="sidebar__arrow"><i class="fa-solid fa-angle-down"></i></div>
-<div class="sidebar__text">Load more</div>
-</a>
 </div>
 <div class="sidebar__group">
 <div class="sidebar__caption caption-sm"><span>Unity </span>Gaming</div>
 <div class="sidebar__menu">
-<a class="sidebar__item" href="https://ui8-unity-gaming.herokuapp.com/chat.html">
-<div class="sidebar__icon"><i class="fa-solid fa-comments"></i></div>
-<div class="sidebar__text">Chat</div>
-<div class="sidebar__counter">20</div>
-</a>
-<a class="sidebar__item js-popup-open" href="https://ui8-unity-gaming.herokuapp.com/index.html#popup-settings" data-effect="mfp-zoom-in">
-<div class="sidebar__icon"><i class="fa-solid fa-gear"></i></div>
-<div class="sidebar__text">Settings</div>
-</a>
-<a class="sidebar__item" href="https://ui8-unity-gaming.herokuapp.com/channel-analytics.html">
-<div class="sidebar__icon"><i class="fa-solid fa-chart-line"></i></div>
-<div class="sidebar__text">Analytics</div>
-</a>
+<a class="sidebar__item" href="https://ui8-unity-gaming.herokuapp.com/chat.html"><div class="sidebar__icon"><i class="fa-solid fa-comments"></i></div><div class="sidebar__text">Chat</div><div class="sidebar__counter">20</div></a>
+<a class="sidebar__item js-popup-open" href="https://ui8-unity-gaming.herokuapp.com/index.html#popup-settings" data-effect="mfp-zoom-in"><div class="sidebar__icon"><i class="fa-solid fa-gear"></i></div><div class="sidebar__text">Settings</div></a>
+<a class="sidebar__item" href="https://ui8-unity-gaming.herokuapp.com/channel-analytics.html"><div class="sidebar__icon"><i class="fa-solid fa-chart-line"></i></div><div class="sidebar__text">Analytics</div></a>
 </div>
 </div>
 </div>
@@ -123,120 +61,42 @@ document.querySelector('.js-switch-theme input').checked = true;
 </label>
 </div>
 </div>
+<!-- Sidebar Menu End-->
+
 <div class="page__wrapper">
+
+<!-- Header -->
 <div class="header"><button class="header__burger"></button>
 <form class="header__search">
 <input class="header__input" type="text" placeholder="Search Everything">
-<button class="header__btn-search" type="submit">
-<i class="fa-solid fa-magnifying-glass"></i>
-</button>
+<button class="header__btn-search" type="submit"><i class="fa-solid fa-magnifying-glass"></i></button>
 </form>
 <div class="header__control">
 <div class="header__item header__item_add js-header-item">
-<button class="header__head js-header-head">
-<i class="fa-solid fa-plus"></i>
-</button>
+<button class="header__head js-header-head"><i class="fa-solid fa-plus"></i></button>
 <div class="header__body js-header-body">
-<a class="header__line" href="https://ui8-unity-gaming.herokuapp.com/upload-videos.html">
-<div class="header__icon"><i class="fa-solid fa-video"></i></div>
-<div class="header__text">New Video</div>
-<div class="header__icon"><i class="fa-solid fa-plus"></i></div>
-</a>
-<a class="header__line" href="https://ui8-unity-gaming.herokuapp.com/index.html#">
-<div class="header__icon"><i class="fa-solid fa-star"></i></div>
-<div class="header__text">Go live</div>
-<div class="header__icon"><i class="fa-solid fa-circle-dot"></i></div>
-</a>
+<a class="header__line" href="/"><div class="header__icon"><i class="fa-solid fa-gamepad"></i></div><div class="header__text">Добавить игру</div></a>
+<a class="header__line" href="/"><div class="header__icon"><i class="fa-solid fa-dice"></i></div><div class="header__text">Добавить аккаунт</div></a>
 </div>
 </div>
-<a class="header__item header__item_search" href="https://ui8-unity-gaming.herokuapp.com/index.html#">
-<i class="fa-solid fa-magnifying-glass"></i>
-</a>
+<a class="header__item header__item_search" href="https://ui8-unity-gaming.herokuapp.com/index.html#"><i class="fa-solid fa-magnifying-glass"></i></a>
 </div>
 <div class="header__item header__item_profile">
-<a class="header__head" href="https://ui8-unity-gaming.herokuapp.com/index.html#">
-<img class="header__pic" src="/static/images/avatar.png" alt="">
-</a>
+<a class="header__head" href="https://ui8-unity-gaming.herokuapp.com/index.html#"><img class="header__pic" src="{{ request.state.user.avatar or '/static/images/avatar.png' }}" alt=""></a>
 <div class="header__body">
-<a class="header__link" href="https://ui8-unity-gaming.herokuapp.com/index.html#">
-<div class="header__img"><i class="fa-solid fa-user"></i></div>Profile
-</a>
-<a class="header__link" href="https://ui8-unity-gaming.herokuapp.com/playlist.html">
-<div class="header__img"><i class="fa-solid fa-list"></i></div>My Playlist
-</a>
-<a class="header__link" href="https://ui8-unity-gaming.herokuapp.com/channel-profile.html">
-<div class="header__img"><i class="fa-solid fa-gamepad"></i></div>My Channel
-</a>
-<a class="header__link js-popup-open" href="https://ui8-unity-gaming.herokuapp.com/index.html#popup-settings" data-effect="mfp-zoom-in">
-<div class="header__img"><i class="fa-solid fa-gear"></i></div>Settings
-</a>
-<a class="header__link" href="https://ui8-unity-gaming.herokuapp.com/index.html#">
-<div class="header__img"><i class="fa-solid fa-right-from-bracket"></i></div>Log Out
-</a>
+<a class="header__link" href="/user/{{ request.state.user.username }}"><div class="header__img"><i class="fa-solid fa-user"></i></div>Профиль</a>
+<a class="header__link" href="/"><div class="header__img"><i class="fa-solid fa-gear"></i></div>Настройки</a>
+<a class="header__link" href="/logout"><div class="header__img"><i class="fa-solid fa-right-from-bracket"></i></div>Выйти</a>
 </div>
 </div>
 </div>
+<!-- Header End -->
+
 <div class="page__center">
-<div class="collection">
-<div class="collection__head">
-<div class="collection__title h5">Live channels</div>
-</div>
-<div class="collection__list">
-<a class="card" href="https://ui8-unity-gaming.herokuapp.com/index.html#">
-<div class="card__preview"><img class="card__pic" src="/static/images/card-pic-1.png"></div>
-<div class="card__body">
-<div class="card__title h6">2020 World Champs Gaming Warzone</div>
-<div class="card__user">
-<div class="card__ava"><img class="card__pic" src="/static/images/ava-1.png" alt=""></div>
-<div class="card__desc">
-<div class="card__man confirm">Tam Tran</div>
-<div class="card__game">Call of Duty®</div>
+{% block content %}{% endblock %}
 </div>
 </div>
 </div>
-<div class="card__foot">
-<div class="live">Live</div>
-<div class="status blue">4.2K watching</div>
-</div>
-</a>
-</div>
-</div>
-<div class="users">
-<div class="users__container">
-<div class="users__info h6">From Channels You Follow</div>
-<div class="users__list">
-<a class="users__item users__item_add" href="https://ui8-unity-gaming.herokuapp.com/index.html#">
-<div class="users__add"><i class="fa-solid fa-plus"></i></div>
-<div class="users__title">Add Yours </div>
-</a>
-<a class="users__item" href="https://ui8-unity-gaming.herokuapp.com/index.html#">
-<div class="ava ava_online"><img class="ava__pic" src="/static/images/ava-1.png" alt=""></div>
-<div class="users__title">Gabriel  Erickson </div>
-<div class="users__time">14m ago</div>
-</a>
-</div>
-</div>
-</div>
-<div class="categories">
-<div class="categories__info h5">Popular Categories</div>
-<div class="categories__list">
-<div class="categories__item categories__item_sm">
-<div class="categories__preview" style="background-image: url(&#39;img/categories-pic-2.png&#39;);"></div>
-<div class="categories__details">
-<div class="categories__tags">
-<div class="categories__tag">Shooter</div>
-</div>
-<div class="categories__title h6">Fortnite</div>
-<div class="status green">4.9K Viewers</div>
-<button class="categories__btn btn btn_gray">Follow</button>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-</div>
-</body>
 
 <script src="{{ url_for('static', path='js/jquery.min.js') }}"></script>
 <script src="{{ url_for('static', path='js/svg4everybody.min.js') }}"></script>
@@ -247,4 +107,5 @@ document.querySelector('.js-switch-theme input').checked = true;
 <script src="{{ url_for('static', path='js/app.js') }}"></script>
 <script src="{{ url_for('static', path='js/charts.js') }}"></script>
 
+</body>
 </html>

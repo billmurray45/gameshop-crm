@@ -1,0 +1,88 @@
+{% extends "base.html" %}
+{% block title %}Настройки профиля{% endblock %}
+{% block content %}
+<div class="popup popup_settings">
+<form class="popup__form" method="post" enctype="multipart/form-data" action="/user/{{ request.state.user.username }}/avatar">
+{% if request.session.get('error') %}
+<div class="form-error" style="margin-bottom:16px;padding:14px 22px;background:#FFEDEE;border:1px solid #EF5350;border-radius:12px;color:#C62828;font-size:15px;display:flex;align-items:center;gap:12px;">
+<svg width="20" height="20" fill="none" style="flex-shrink:0;"><circle cx="10" cy="10" r="10" fill="#ef5350"/><path d="M10 5v6" stroke="#fff" stroke-width="2" stroke-linecap="round"/><circle cx="10" cy="14.5" r="1" fill="#fff"/></svg>
+<span>{{ request.session.pop('error') }}</span>
+</div>
+{% endif %}
+<div class="popup__title h6">Настройки аккаунта</div>
+<div class="popup__user">
+<div class="popup__category caption-sm">Ваш аватар</div>
+<div class="popup__line">
+<div class="popup__ava"><img id="avatar-preview" class="popup__pic" src="{{ request.state.user.avatar or '/static/images/ava-1.png' }}" alt=""></div>
+<div class="popup__details">
+<div class="popup__btns">
+<div class="popup__loading" style="display:flex;flex-direction:column;align-items:flex-start;gap:8px;">
+<label class="btn btn_gray" style="margin:0;min-width:130px;display:flex;align-items:center;justify-content:center;cursor:pointer;">
+<input class="popup__file" id="avatar-input" type="file" name="avatar" accept="image/*" style="display:none;">
+<span style="width:100%;text-align:center;">Выбрать аватар</span>
+</label>
+<span id="avatar-filename" style="color:#aaa;font-size:13px;max-width:220px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;display:block;padding-left:6px;">
+{% if request.state.user.avatar %}{{ request.state.user.avatar.split('/')[-1] }}{% endif %}
+</span>
+<button class="popup__btn btn btn_purple" type="submit" style="min-width:120px;margin-top:8px;">Загрузить аватар</button>
+</div>
+</div>
+</div>
+</div>
+</div>
+</form>
+<form class="popup__form" method="post" action="/user/{{ request.state.user.username }}/edit">
+<div class="popup__fieldset">
+<div class="popup__row">
+<div class="popup__field field">
+<div class="field__label">Email</div>
+<div class="field__wrap"><input class="field__input" type="email" name="email" value="{{ request.state.user.email }}"></div>
+</div>
+<div class="popup__field field">
+<div class="field__label">Логин</div>
+<div class="field__wrap"><input class="field__input" type="text" name="username" value="{{ request.state.user.username }}" readonly style="background:#181826;opacity:.8;cursor:not-allowed;"></div>
+</div>
+</div>
+<div class="popup__row">
+<div class="popup__field field">
+<div class="field__label">Имя и Фамилия</div>
+<div class="field__wrap"><input class="field__input" type="text" name="full_name" value="{{ request.state.user.full_name or '' }}"></div>
+</div>
+<div class="popup__field field">
+<div class="field__label">Пароль</div>
+<div class="field__wrap"><input class="field__input" type="password" name="password" autocomplete="new-password"></div>
+</div>
+</div>
+<div class="popup__row">
+<div class="popup__field field">
+<div class="field__label">Дата рождения</div>
+<div class="field__wrap"><input class="field__input" type="date" name="birthday" value="{{ request.state.user.birthday }}"></div>
+</div>
+<div class="popup__field field">
+<div class="field__label">Avatar (URL)</div>
+<div class="field__wrap"><input class="field__input" type="text" name="avatar" value="{{ request.state.user.avatar or '' }}"></div>
+</div>
+</div>
+</div>
+<button class="popup__btn btn btn_purple" type="submit">Обновить профиль</button>
+</form>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded',function(){
+var input=document.getElementById('avatar-input');
+var filename=document.getElementById('avatar-filename');
+var preview=document.getElementById('avatar-preview');
+if(input){input.addEventListener('change',function(e){
+if(this.files&&this.files[0]){
+filename.textContent=this.files[0].name;
+var reader=new FileReader();
+reader.onload=function(ev){if(preview){preview.src=ev.target.result;}}
+reader.readAsDataURL(this.files[0]);
+}else{
+filename.textContent="{{ request.state.user.avatar.split('/')[-1] if request.state.user.avatar else '' }}";
+if(preview){preview.src="{{ request.state.user.avatar or '/static/images/ava-1.png' }}";}
+}});}
+});
+</script>
+{% endblock %}

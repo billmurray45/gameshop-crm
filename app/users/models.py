@@ -1,4 +1,4 @@
-from sqlalchemy import Integer, String, Boolean, DateTime, func
+from sqlalchemy import Integer, String, Boolean, DateTime, func, Date
 from sqlalchemy.orm import mapped_column, Mapped
 from app.core.database import Base
 from datetime import datetime
@@ -12,6 +12,8 @@ class User(Base):
     username: Mapped[str] = mapped_column(String(50), unique=True)
     full_name: Mapped[str] = mapped_column(String(100), nullable=True)
     hashed_password: Mapped[str] = mapped_column(String(128))
+    birthday: Mapped[Date] = mapped_column(Date, nullable=True, default=None)
+    avatar: Mapped[str] = mapped_column(String(255), nullable=True, default=None)
 
     is_active: Mapped[bool] = mapped_column(Boolean, default=True)
     is_superuser: Mapped[bool] = mapped_column(Boolean, default=False)
