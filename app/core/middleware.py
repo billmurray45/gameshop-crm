@@ -19,6 +19,11 @@ class AuthMiddleware(BaseHTTPMiddleware):
             return True
         return path in AuthMiddleware.ALLOWED_PATHS
 
+    @staticmethod
+    async def fetch_user_by_username(username):
+        async with async_session() as session:
+            return await UserRepository.get_user_by_username(session, username)
+
     async def dispatch(self, request, call_next):
         access_token = request.cookies.get("access_token")
         refresh_token = request.cookies.get("refresh_token")
@@ -30,12 +35,10 @@ class AuthMiddleware(BaseHTTPMiddleware):
             try:
                 payload = jwt.decode(access_token, SECRET_KEY, algorithms=[ALGORITHM])
                 username = payload.get("sub")
+                if username:
+                    user = await self.fetch_user_by_username(username)
             except JWTError:
                 pass
-
-        if username:
-            async with async_session() as session:
-                user = await UserRepository.get_user_by_username(session, username)
 
         if not user and refresh_token:
             try:
@@ -43,8 +46,7 @@ class AuthMiddleware(BaseHTTPMiddleware):
                 if payload.get("token_type") == "refresh":
                     username = payload.get("sub")
                     if username:
-                        async with async_session() as session:
-                            user = await UserRepository.get_user_by_username(session, username)
+                        user = await self.fetch_user_by_username(username)
                         if user:
                             new_access = create_access_token({"sub": username})
                             new_refresh = create_refresh_token({"sub": username})

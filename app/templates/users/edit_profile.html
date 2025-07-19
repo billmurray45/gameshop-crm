@@ -3,12 +3,7 @@
 {% block content %}
 <div class="popup popup_settings">
 <form class="popup__form" method="post" enctype="multipart/form-data" action="/user/{{ request.state.user.username }}/avatar">
-{% if request.session.get('error') %}
-<div class="form-error" style="margin-bottom:16px;padding:14px 22px;background:#FFEDEE;border:1px solid #EF5350;border-radius:12px;color:#C62828;font-size:15px;display:flex;align-items:center;gap:12px;">
-<svg width="20" height="20" fill="none" style="flex-shrink:0;"><circle cx="10" cy="10" r="10" fill="#ef5350"/><path d="M10 5v6" stroke="#fff" stroke-width="2" stroke-linecap="round"/><circle cx="10" cy="14.5" r="1" fill="#fff"/></svg>
-<span>{{ request.session.pop('error') }}</span>
-</div>
-{% endif %}
+{% if request.session.get('error') %}<div class="error-message"><span>{{ request.session.pop('error') }}</span></div>{% endif %}
 <div class="popup__title h6">Настройки аккаунта</div>
 <div class="popup__user">
 <div class="popup__category caption-sm">Ваш аватар</div>

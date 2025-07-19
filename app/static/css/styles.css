@@ -2218,3 +2218,5 @@ body.dark .login__close{background:#242731}
 .header__item_search i{font-size:18px}
 .header__img i{font-size:18px;vertical-align:middle}
 .users__add i{font-size:18px;vertical-align:middle}
+.error-message {background:rgba(164,40,73,0.85); color:#fff; border-radius:10px; padding:16px 22px 16px 54px; margin-bottom:22px; font-size:0.9rem; font-weight:500; box-shadow:0 2px 18px 0 rgba(164,40,73,0.22); position:relative; letter-spacing:0.01em}
+.error-message::before {content:''; display:block; position:absolute; left:20px; top:50%; width:22px; height:22px; background:url('data:image/svg+xml; utf8,<svg fill="white" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10" fill="%23e5484d"/><path d="M12 7v5m0 4h.01" stroke="white" stroke-width="2" stroke-linecap="round"/></svg>') center/22px no-repeat; transform:translateY(-50%); opacity:0.85; pointer-events:none}
