@@ -26,6 +26,7 @@ async def create_user_service(session: AsyncSession, user_data: UserCreate) -> U
 
 async def update_user_service(session: AsyncSession, user_id: int, user_data: UserUpdate) -> User:
     user = await UserRepository.get_user_by_id(session, user_id)
+
     if not user:
         raise HTTPException(404, "Пользователь не найден")
 

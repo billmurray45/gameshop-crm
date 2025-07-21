@@ -1,4 +1,4 @@
-from sqlalchemy import Integer, String, DateTime, func, ForeignKey, Table, Column, Index, Text
+from sqlalchemy import Integer, String, DateTime, func, ForeignKey, Table, Column, Text, UniqueConstraint
 from sqlalchemy.orm import mapped_column, Mapped, relationship
 from app.core.database import Base
 from datetime import datetime
@@ -7,18 +7,16 @@ from typing import List, Optional
 game_platform = Table(
     'game_platform', Base.metadata,
     Column('game_id', ForeignKey('games.id', ondelete='CASCADE'), primary_key=True),
-    Column('platform_id', ForeignKey('platforms.id', ondelete='CASCADE'), primary_key=True),
-    Index('idx_game_platform_game_id', 'game_id'),
-    Index('idx_game_platform_platform_id', 'platform_id')
+    Column('platform_id', ForeignKey('platforms.id', ondelete='CASCADE'), primary_key=True)
 )
 
 
 class Game(Base):
     __tablename__ = "games"
 
-    id: Mapped[int] = mapped_column(Integer, primary_key=True, index=True)
-    name: Mapped[str] = mapped_column(String(100), nullable=False, index=True)
-    year: Mapped[int] = mapped_column(Integer, nullable=False, index=True)
+    id: Mapped[int] = mapped_column(Integer, primary_key=True)
+    name: Mapped[str] = mapped_column(String(100), nullable=False)
+    year: Mapped[int] = mapped_column(Integer, nullable=False)
     description: Mapped[Optional[str]] = mapped_column(Text, nullable=True)
 
     platforms: Mapped[List["Platform"]] = relationship(
@@ -41,7 +39,7 @@ class Game(Base):
     )
 
     __table_args__ = (
-        Index('idx_game_name_year', 'name', 'year'),
+        UniqueConstraint('name', 'year', name='uq_game_name_year'),
     )
 
     def __repr__(self) -> str:
@@ -51,8 +49,8 @@ class Game(Base):
 class Platform(Base):
     __tablename__ = "platforms"
 
-    id: Mapped[int] = mapped_column(Integer, primary_key=True, index=True)
-    name: Mapped[str] = mapped_column(String(100), nullable=False, unique=True, index=True)
+    id: Mapped[int] = mapped_column(Integer, primary_key=True)
+    name: Mapped[str] = mapped_column(String(100), nullable=False, unique=True)
 
     games: Mapped[List["Game"]] = relationship(
         "Game",

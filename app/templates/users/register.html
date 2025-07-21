@@ -3,8 +3,11 @@
 <head>
 <meta charset="UTF-8">
 <title>Регистрация - PSNGames CRM</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
 <link rel="stylesheet" href="{{ url_for('static', path='css/auth.css') }}">
 </head>
+
 <body>
 <div class="container">
 <div class="form-section">
@@ -22,12 +25,12 @@
 <input type="text" id="full_name" name="full_name" placeholder="Иван Иванов" maxlength="100" value="{{ form.full_name if form and form.full_name else '' }}">
 <label>Пароль <span class="req">*</span></label>
 <div class="password-wrapper">
-<input type="password" id="password" name="password" required minlength="8" maxlength="128" autocomplete="new-password">
+<input type="password" id="password" name="password" required minlength="8" maxlength="30" autocomplete="new-password">
 <span class="eye"></span>
 </div>
 <label>Повторите пароль <span class="req">*</span></label>
 <div class="password-wrapper">
-<input type="password" id="confirm_password" name="confirm_password" required minlength="8" maxlength="128" autocomplete="new-password">
+<input type="password" id="confirm_password" name="confirm_password" required minlength="8" maxlength="30" autocomplete="new-password">
 <span class="eye"></span>
 </div>
 <button type="submit" class="register-btn">Зарегистрироваться</button>
@@ -36,6 +39,7 @@
 <div class="image-section"></div>
 </div>
 </body>
+
 <script>
 document.addEventListener('DOMContentLoaded', function() {
   const form = document.querySelector('.register-form');
@@ -81,4 +85,5 @@ document.addEventListener('DOMContentLoaded', function() {
   });
 });
 </script>
+
 </html>

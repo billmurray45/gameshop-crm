@@ -37,12 +37,7 @@ async def register_user(
     full_name: str = Form(None),
     password: str = Form(...)
 ):
-    user_data = UserCreate(
-        email=email,
-        username=username,
-        full_name=full_name,
-        password=password
-    )
+    user_data = UserCreate(email=email, username=username, full_name=full_name, password=password)
 
     try:
         await create_user_service(session, user_data)
