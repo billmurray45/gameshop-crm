@@ -1,6 +1,7 @@
 from pydantic import BaseModel, Field, EmailStr, ConfigDict
 from datetime import date
 from typing import Optional
+from fastapi import UploadFile
 
 
 class UserBase(BaseModel):
@@ -21,7 +22,7 @@ class UserUpdate(BaseModel):
     full_name: Optional[str] = Field(None, max_length=100)
     password: Optional[str] = Field(None, min_length=8, max_length=30)
     birthday: Optional[date] = Field(None)
-    avatar: Optional[str] = Field(None, max_length=255)
+    avatar: Optional[UploadFile] = None
 
 
 class UserRead(UserBase):
